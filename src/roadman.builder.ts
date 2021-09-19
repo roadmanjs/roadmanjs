@@ -3,9 +3,8 @@ import express, {Application} from 'express';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
 import {Server} from 'http';
 import {isEmpty} from 'lodash';
-import {couchbaseRoadman} from './afters/couchbase';
-import {expressRoadman} from './befores/express';
-import sentryRoadman from './befores/sentry';
+import {couchbaseRoadman} from './afters';
+import {expressRoadman, graphQLRoadman, sentryRoadman} from './befores';
 import {RoadmanBuild, IRoadMan} from './shared';
 
 /**
@@ -69,6 +68,14 @@ export class RoadmanBuilder implements RoadmanBuild {
         } else {
             roadman(this);
         }
+
+        return this;
+    }
+
+    graphqlRoadman(roadman?: IRoadMan): RoadmanBuilder {
+        const mandem = roadman || graphQLRoadman;
+
+        mandem(this).then(() => {});
 
         return this;
     }

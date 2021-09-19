@@ -30,7 +30,8 @@ export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
         });
     }
 
-    await roadman.lastRoadman();
+    await roadman.graphqlRoadman(); // to build the schemas
+    await roadman.lastRoadman(); // to start the db and the server
 
     return true;
 };
