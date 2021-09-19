@@ -14,7 +14,6 @@ service.account.json*
 
 # Backend
 .idea/
-.vscode/
 node_modules/
 build/
 dist/
