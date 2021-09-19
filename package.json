@@ -1,6 +1,6 @@
 {
     "name": "roadman",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Building enterprise-scale Node.js apps",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -24,7 +24,6 @@
         "prepublishOnly": "npm run build",
         "eslint": "eslint ./src --fix --ext=ts"
     },
-
     "lint-staged": {
         "*.{ts,tsx}": [
             "npm run eslint"
@@ -55,7 +54,6 @@
         "@types/ioredis": "^4.17.10",
         "@types/jsonwebtoken": "^8.5.0",
         "@types/stripe": "^8.0.417",
-
         "chai": "^4.2.0",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.11.0",
