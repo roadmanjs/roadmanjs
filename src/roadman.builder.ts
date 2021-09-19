@@ -8,6 +8,14 @@ import {expressRoadman} from './befores/express';
 import sentryRoadman from './befores/sentry';
 import {RoadmanBuild, IRoadMan} from './shared';
 
+/**
+ * The Roadman Builder
+ * const roadman = new RoadmanBuilder(app);
+ * roadman.useRoadman(myCoolRoadman);
+ * roadman.useApp(path, handler);
+ * Build all the roadmen
+ * roadman.build();
+ */
 export class RoadmanBuilder implements RoadmanBuild {
     app: Application;
     pubsub: RedisPubSub;
@@ -25,10 +33,10 @@ export class RoadmanBuilder implements RoadmanBuild {
         }
     }
 
-    firstRoadman(roadman: IRoadMan): RoadmanBuilder {
+    firstRoadman(roadman?: IRoadMan): RoadmanBuilder {
         const mandem = roadman || expressRoadman;
 
-        mandem({app: this.app}).then(({app, pubsub}) => {
+        mandem(this).then(({app, pubsub}) => {
             this.app = app;
             this.pubsub = pubsub;
         });
@@ -46,15 +54,10 @@ export class RoadmanBuilder implements RoadmanBuild {
         return this;
     }
 
-    lastRoadman(roadman: IRoadMan): RoadmanBuilder {
+    lastRoadman(roadman?: IRoadMan): RoadmanBuilder {
         const mandem = roadman || couchbaseRoadman;
 
-        mandem({
-            app: this.app,
-            pubsub: this.pubsub,
-            apolloServer: this.apolloServer,
-            httpServer: this.httpServer,
-        }).then(() => {});
+        mandem(this).then(() => {});
 
         return this;
     }
