@@ -2,7 +2,14 @@
     "name": "roadman",
     "version": "0.0.0",
     "description": "Building enterprise-scale Node.js apps",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "docs/",
+        "dist/",
+        "register/",
+        "LICENSE"
+    ],
     "author": {
         "name": "Ceddy Muhoza",
         "email": "ceddymuhoza@gmail.com",
