@@ -7,11 +7,9 @@ interface IRoadmanDefault {
     apps?: any[];
 }
 
-export const roadman = async ({
-    resolvers,
-    roadmen,
-    apps,
-}: Partial<IRoadmanDefault>): Promise<boolean> => {
+export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
+    const {resolvers, roadmen, apps} = args;
+
     const roadman = new RoadmanBuilder();
 
     await roadman.firstRoadman();

@@ -21,6 +21,7 @@ export class RoadmanBuilder implements RoadmanBuild {
     pubsub: RedisPubSub;
     apolloServer: ApolloServer;
     httpServer: Server;
+    resolvers = [];
 
     constructor(app?: Application, roadmen?: IRoadMan[]) {
         this.app = app ? app : express();
