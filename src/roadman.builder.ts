@@ -33,13 +33,13 @@ export class RoadmanBuilder implements RoadmanBuild {
         }
     }
 
-    firstRoadman(roadman?: IRoadMan): RoadmanBuilder {
+    async firstRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
         const mandem = roadman || expressRoadman;
 
-        mandem(this).then(({app, pubsub}) => {
-            this.app = app;
-            this.pubsub = pubsub;
-        });
+        const {app, pubsub} = await mandem(this);
+
+        this.app = app;
+        this.pubsub = pubsub;
 
         return this;
     }
@@ -58,32 +58,34 @@ export class RoadmanBuilder implements RoadmanBuild {
         return this;
     }
 
-    useRoadman(roadman: IRoadMan | IRoadMan[]): RoadmanBuilder {
+    async useRoadman(roadman: IRoadMan | IRoadMan[]): Promise<RoadmanBuilder> {
         if (Array.isArray(roadman)) {
             if (!isEmpty(roadman)) {
                 for (const road of roadman) {
-                    road(this);
+                    await road(this);
                 }
             }
         } else {
-            roadman(this);
+            await roadman(this);
         }
 
         return this;
     }
 
-    graphqlRoadman(roadman?: IRoadMan): RoadmanBuilder {
+    async graphqlRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
         const mandem = roadman || graphQLRoadman;
 
-        mandem(this).then(() => {});
+        const {apolloServer, httpServer} = await mandem(this);
+        this.apolloServer = apolloServer;
+        this.httpServer = httpServer;
 
         return this;
     }
 
-    lastRoadman(roadman?: IRoadMan): RoadmanBuilder {
+    async lastRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
         const mandem = roadman || couchbaseRoadman;
 
-        mandem(this).then(() => {});
+        const {} = await mandem(this);
 
         return this;
     }
