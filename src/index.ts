@@ -38,6 +38,7 @@ export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
 
 export * from './roadman.builder';
 export * from './shared';
+export * from './config';
 export * from './befores';
 export * from './afters';
 export * from './pengs';
