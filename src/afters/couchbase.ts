@@ -3,13 +3,13 @@ import 'dotenv/config';
 import chalk from 'chalk';
 import {PORT, log} from '../config';
 import {startCouchbase} from '../database';
-import {AfterRoadmanBuild} from '../shared';
+import {RoadmanBuild} from '../shared';
 
 /**
  * An example of a last RoadMan
- * @param AfterRoadmanBuild
+ * @param RoadmanBuild
  */
-export const couchbaseRoadman = async ({httpServer, pubsub}: AfterRoadmanBuild): Promise<void> => {
+export const couchbaseRoadman = async ({httpServer, pubsub}: RoadmanBuild): Promise<void> => {
     startCouchbase()
         .then(() => {
             httpServer.listen(Number(PORT), () => {

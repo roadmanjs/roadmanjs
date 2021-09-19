@@ -6,9 +6,9 @@ import {RedisPubSub} from 'graphql-redis-subscriptions';
 
 export interface RoadmanBuild {
     app: Application;
-    pubsub: RedisPubSub;
-    apolloServer: ApolloServer;
-    httpServer: http.Server;
+    pubsub?: RedisPubSub;
+    apolloServer?: ApolloServer;
+    httpServer?: http.Server;
     resolvers?: NonEmptyArray<Function> | NonEmptyArray<string>;
 }
 

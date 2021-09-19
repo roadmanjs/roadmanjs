@@ -2,7 +2,7 @@ import {ApolloServer} from 'apollo-server-express';
 import {buildSchemaSync} from 'type-graphql';
 import http from 'http';
 import {graphqlPath} from '../config';
-import {AfterRoadmanBuild, BeforeRoadmanBuild} from '../shared';
+import {RoadmanBuild} from '../shared';
 
 /**
  * The last Builder Roadman
@@ -13,7 +13,7 @@ export const graphQLRoadman = async ({
     app,
     pubsub,
     resolvers,
-}: BeforeRoadmanBuild): Promise<AfterRoadmanBuild> => {
+}: RoadmanBuild): Promise<RoadmanBuild> => {
     const schema = pubsub
         ? buildSchemaSync({
               resolvers,
