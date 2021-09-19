@@ -1,14 +1,24 @@
 import {RoadmanBuilder} from './roadman.builder';
+import {IRoadMan} from './shared';
 
 interface IRoadmanDefault {
     resolvers?: Function[];
-    roadmen?: any[];
+    roadmen?: IRoadMan[];
+    apps?: any[];
 }
+
 export const roadManStart = async ({
     resolvers,
     roadmen,
+    apps,
 }: Partial<IRoadmanDefault>): Promise<boolean> => {
     const roadman = new RoadmanBuilder();
+
+    await roadman.firstRoadman();
+
+    if (apps) {
+        roadman.useApp(apps);
+    }
 
     if (roadmen) {
         roadman.useRoadman(roadmen);
@@ -22,10 +32,7 @@ export const roadManStart = async ({
         });
     }
 
-    // call all befores
-    // add all the middlewares
-    // run all
-    // Add all the afters
+    await roadman.lastRoadman();
 
     return true;
 };
