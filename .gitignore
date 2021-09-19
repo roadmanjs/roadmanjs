@@ -17,6 +17,7 @@ service.account.json*
 .vscode/
 node_modules/
 build/
+dist/
 tmp/
 temp/
 keys/
