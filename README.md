@@ -18,7 +18,7 @@
 </div>
 
 
-An efficient, and flexible JavaScript library for building backend services.
+An efficient, and flexible NodeJS library for building backend services.
 
 
 ## 1. Install
