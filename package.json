@@ -1,0 +1,9 @@
+{
+  "name": "roadman",
+  "version": "0.0.0",
+  "description": "Building enterprise-scale Node.js apps",
+  "main": "index.js",
+  "author": "Ceddy Muhoza <ceddymuhoza@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
