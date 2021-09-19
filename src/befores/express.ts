@@ -59,4 +59,4 @@ export const expressRoadman = async ({app}: BeforeRoadmanBuild): Promise<BeforeR
     return {app, pubsub};
 };
 
-export default expressApp;
+export default expressRoadman;

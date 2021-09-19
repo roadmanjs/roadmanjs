@@ -9,10 +9,7 @@ import {AfterRoadmanBuild} from '../shared';
  * An example of a last RoadMan
  * @param AfterRoadmanBuild
  */
-export const startCouchbaseRoadman = async ({
-    httpServer,
-    pubsub,
-}: AfterRoadmanBuild): Promise<void> => {
+export const couchbaseRoadman = async ({httpServer, pubsub}: AfterRoadmanBuild): Promise<void> => {
     startCouchbase()
         .then(() => {
             httpServer.listen(Number(PORT), () => {
