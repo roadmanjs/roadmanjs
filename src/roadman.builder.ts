@@ -44,13 +44,31 @@ export class RoadmanBuilder implements RoadmanBuild {
         return this;
     }
 
-    useApp(use: any): RoadmanBuilder {
-        this.app.use(use);
+    useApp(use: any | any[]): RoadmanBuilder {
+        if (Array.isArray(use)) {
+            if (!isEmpty(use)) {
+                for (const app of use) {
+                    this.app.use(app);
+                }
+            }
+        } else {
+            this.app.use(use);
+        }
+
         return this;
     }
 
-    useRoadman(roadman: IRoadMan): RoadmanBuilder {
-        roadman(this);
+    useRoadman(roadman: IRoadMan | IRoadMan[]): RoadmanBuilder {
+        if (Array.isArray(roadman)) {
+            if (!isEmpty(roadman)) {
+                for (const road of roadman) {
+                    road(this);
+                }
+            }
+        } else {
+            roadman(this);
+        }
+
         return this;
     }
 
