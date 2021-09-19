@@ -1,28 +1,19 @@
 import {ApolloServer} from 'apollo-server-express';
-import {buildSchemaSync, NonEmptyArray} from 'type-graphql';
+import {buildSchemaSync} from 'type-graphql';
 import http from 'http';
 import {graphqlPath} from '../config';
-import {Application} from 'express';
-import {RedisPubSub} from 'graphql-redis-subscriptions';
+import {AfterRoadmanBuild, BeforeRoadmanBuild} from '../shared';
 
-interface BuiltGraphQLServer {
-    app: Application;
-    pubsub: RedisPubSub;
-    apolloServer: ApolloServer;
-    httpServer: http.Server;
-}
-
-interface BuildGraphQL {
-    app: Application;
-    pubsub: RedisPubSub;
-    resolvers: NonEmptyArray<Function> | NonEmptyArray<string>;
-}
-
-export const buildGraphQL = async ({
+/**
+ * The last Builder Roadman
+ * @param BeforeRoadmanBuild
+ * @returns AfterRoadmanBuild
+ */
+export const graphQLRoadman = async ({
     app,
     pubsub,
     resolvers,
-}: BuildGraphQL): Promise<BuiltGraphQLServer> => {
+}: BeforeRoadmanBuild): Promise<AfterRoadmanBuild> => {
     const schema = pubsub
         ? buildSchemaSync({
               resolvers,

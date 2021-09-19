@@ -6,10 +6,14 @@ import {graphqlUploadExpress} from 'graphql-upload';
 import Redis from 'ioredis';
 import _get from 'lodash/get';
 import {isEmpty} from 'lodash';
+import {BeforeRoadmanBuild} from '../shared';
 
-export const expressApp = async (
-    app: express.Application
-): Promise<{app: express.Application; pubsub: PubSub}> => {
+/**
+ * First Builder Roadman, #1 my g
+ * @param  BeforeRoadmanBuild
+ * @returns BeforeRoadmanBuild
+ */
+export const expressRoadman = async ({app}: BeforeRoadmanBuild): Promise<BeforeRoadmanBuild> => {
     const redisHost = _get(process.env, 'REDIS_HOST', 'localhost');
 
     let pubsub: any = null;

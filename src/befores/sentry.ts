@@ -12,14 +12,15 @@ const sentryConfig = {
 };
 
 /**
- * Initialise Sentry
+ * Sentry Builder Roadman
  * @returns
  */
-export const initSentry = () => {
+export const sentryRoadman = async <T>(args: T): Promise<T> => {
     if (isDev) {
         return;
     }
     Sentry.init(sentryConfig);
+    return args;
 };
 
 export const catchError = (e: Error | any) => {
@@ -30,4 +31,4 @@ export const catchError = (e: Error | any) => {
     Sentry.captureException(e);
 };
 
-export default initSentry;
+export default sentryRoadman;
