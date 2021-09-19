@@ -7,7 +7,7 @@ interface IRoadmanDefault {
     apps?: any[];
 }
 
-export const roadManStart = async ({
+export const roadman = async ({
     resolvers,
     roadmen,
     apps,
@@ -36,3 +36,10 @@ export const roadManStart = async ({
 
     return true;
 };
+
+export * from './roadman.builder';
+export * from './shared';
+export * from './befores';
+export * from './afters';
+export * from './pengs';
+export * from './wastemans';
