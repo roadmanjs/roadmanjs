@@ -85,7 +85,7 @@ export class RoadmanBuilder implements RoadmanBuild {
     async lastRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
         const mandem = roadman || couchbaseRoadman;
 
-        const {} = await mandem(this);
+        await mandem(this);
 
         return this;
     }
