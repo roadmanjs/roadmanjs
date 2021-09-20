@@ -21,6 +21,21 @@
 An efficient, and flexible NodeJS library for building backend services.
 
 
+### Roadman Features
+
+
+| Feature            | Progress |
+| ----------------- | -------- |
+| ExpressJS (REST API)              | ✅        |
+| GraphQL API | ✅        |
+| File transfer (upload/storage)     | ✅        |
+| Couchbase   | ✅        |
+| Redis (queue, subscriptions)     | ✅        |
+| Twilio       | ❌        |
+| Stripe       | ❌        |
+| MongoDB       | ❌        |
+| Firebase auth (phone, email...)      | ❌        |
+
 ## 1. Install
 ```bash
 npm i roadman --save
