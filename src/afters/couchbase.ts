@@ -14,9 +14,9 @@ export const couchbaseRoadman = async ({httpServer, pubsub}: RoadmanBuild): Prom
     const [errorStarting, started] = await awaitTo(startCouchbase());
 
     if (started) {
-        log(chalk.green(`Couchbase started`));
         httpServer.listen(Number(PORT), () => {
             log(chalk.green(`Server started on port ${PORT}, Redis=${pubsub ? true : false}`));
+            log(chalk.rgb(255, 100, 200)(`GraphQL API at http://localhost:${PORT}/graphql`));
         });
     }
 

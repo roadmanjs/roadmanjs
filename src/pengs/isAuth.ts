@@ -3,7 +3,8 @@ import {ContextType} from '../shared';
 import {verify} from 'jsonwebtoken';
 import {isEmpty, get as _get} from 'lodash';
 
-export const isAuth: MiddlewareFn<ContextType> = ({context}, next) => {
+export const isAuth: MiddlewareFn<ContextType> = (args, next) => {
+    const context: any = (args && args.context) || {};
     const authorization = _get(context, 'req.headers.authorization', '');
 
     if (isEmpty(authorization)) {
