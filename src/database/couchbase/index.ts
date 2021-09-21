@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import get from 'lodash/get';
 import chalk from 'chalk';
-import {startSofa} from '@stoqey/sofa';
+import {couchset} from 'couchset';
 import {log} from '../../config';
 
 export const queryLimit = get(process.env, 'COUCHBASE_QUERY_LIMIT', 600) || 600;
@@ -38,7 +38,7 @@ export const startCouchbase = (): Promise<boolean> => {
         )
     );
     return new Promise((res, rej) => {
-        startSofa(connectionOptions)
+        couchset(connectionOptions)
             .then(() => {
                 log(
                     'Couchbase ',
