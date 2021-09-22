@@ -41,10 +41,10 @@ An efficient, and flexible NodeJS library for building backend services.
 npm i roadman --save
 ```
 
-## 2. Start Roadman
+## 2. Basic example
 ```ts
 import {roadman} from 'roadman';
-import {Resolver, Query} from 'type-graphql';
+import {Resolver, Query} from 'couchset';
 
 // Create a demo GraphQL resolver
 @Resolver()
@@ -57,6 +57,41 @@ class ExampleResolver {
 }
 
 // run roadman
-const run = await roadman({resolvers: [ExampleResolver]});
+await roadman({resolvers: [ExampleResolver]});
+
+```
+
+
+## 3. With model automation
+ [example file here](./src/app.example.ts)
+
+```ts
+import {roadman} from 'roadman';
+import {Model, ObjectType, InputType, Field} from 'couchset';
+
+@InputType('PersonInput')
+@ObjectType()
+class Person {
+    @Field(() => String, {nullable: true})
+    id?: string = '';
+
+    @Field(() => String, {nullable: true})
+    firstname?: string = '';
+
+    @Field(() => String, {nullable: true})
+    lastname?: string = '';
+
+    @Field(() => Number, {nullable: true})
+    phone?: number = 0;
+}
+
+const PersonModel = new Model('Person', {graphqlType: Person});
+const {resolver} = PersonModel.automate({
+    getById: {public: true},
+    createUpdate: {public: true},
+    pagination: {public: true},
+});
+
+await roadman({resolvers: [resolver]});
 
 ```
