@@ -1,6 +1,6 @@
 {
     "name": "roadman",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "An efficient, and flexible NodeJS library for building backend services.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
