@@ -1,4 +1,7 @@
-import {roadman} from './index';
+
+
+```ts
+import {roadman} from '../src/index';
 import {Model, ObjectType, InputType, Field} from 'couchset';
 
 @InputType('PersonInput')
@@ -29,3 +32,4 @@ const run = async () => {
 };
 
 run();
+```
