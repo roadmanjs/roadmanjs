@@ -3,8 +3,8 @@ import express, {Application} from 'express';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
 import {Server} from 'http';
 import {isEmpty} from 'lodash';
-import {couchbaseRoadman} from './afters';
-import {expressRoadman, graphQLRoadman, sentryRoadman} from './befores';
+import {listenRoadman} from './afters';
+import {expressRoadman, graphQLRoadman} from './befores';
 import {RoadmanBuild, IRoadMan} from './shared';
 
 /**
@@ -24,7 +24,7 @@ export class RoadmanBuilder implements RoadmanBuild {
 
     constructor(app?: Application, roadmen?: IRoadMan[]) {
         this.app = app ? app : express();
-        sentryRoadman(this); // first
+        // sentryRoadman(this); // first
 
         if (!isEmpty(roadmen)) {
             for (const roadman of roadmen) {
@@ -83,7 +83,7 @@ export class RoadmanBuilder implements RoadmanBuild {
     }
 
     async lastRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
-        const mandem = roadman || couchbaseRoadman;
+        const mandem = roadman || listenRoadman;
 
         await mandem(this);
 
