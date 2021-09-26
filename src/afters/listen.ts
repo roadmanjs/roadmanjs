@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import 'dotenv/config';
 import chalk from 'chalk';
 import {PORT, log} from '../config';

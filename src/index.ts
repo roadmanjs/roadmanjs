@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {RoadmanBuilder} from './roadman.builder';
 import {IRoadMan} from './shared';
 
