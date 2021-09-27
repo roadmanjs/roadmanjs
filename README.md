@@ -6,7 +6,8 @@
 
 <div align="center">
 
-<img width="200px" src="./docs/roadman.png"></img>
+<img width="500px" src="./docs/roadman_dance.gif"></img>
+
 
 <div style="display: flex;justify-content:center;">
 
@@ -28,13 +29,12 @@ An efficient, and flexible NodeJS library for building backend services.
 | ----------------- | -------- |
 | ExpressJS (REST API)              | ✅        |
 | GraphQL API | ✅        |
-| File transfer (upload/storage)     | ✅        |
-| Couchbase   | ✅        |
 | Redis (queue, subscriptions)     | ✅        |
-| Twilio       | ❌        |
+| [Couchbase](https://github.com/roadmanjs/couchset)   | ✅        |
+<!-- | Twilio       | ❌        |
 | Stripe       | ❌        |
 | MongoDB       | ❌        |
-| Firebase auth (phone, email...)      | ❌        |
+| Firebase auth (phone, email...)      | ❌        | -->
 
 ## 1. Install
 ```bash
