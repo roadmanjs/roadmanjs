@@ -1,4 +1,5 @@
 import {ApolloServer} from 'apollo-server-express';
+import {log} from 'console';
 import express, {Application} from 'express';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
 import {Server} from 'http';
@@ -6,6 +7,7 @@ import {isEmpty} from 'lodash';
 import {listenRoadman} from './afters';
 import {expressRoadman, graphQLRoadman} from './befores';
 import {RoadmanBuild, IRoadMan} from './shared';
+import awaitTo from './utils/awaitTo';
 
 /**
  * The Roadman Builder
@@ -88,5 +90,14 @@ export class RoadmanBuilder implements RoadmanBuild {
         await mandem(this);
 
         return this;
+    }
+
+    async runWastemans(wastemans: Promise<any>[]): Promise<void> {
+        const [error, resolved = []] = await awaitTo(Promise.all(wastemans));
+        if (error) {
+            log('error running wastemans', error);
+            return;
+        }
+        log(`Ran ${resolved.length} Wastemans`, error);
     }
 }
