@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import isEmpty from 'lodash/isEmpty';
 import {RoadmanBuilder} from './roadman.builder';
 import {IRoadMan} from './shared';
 
@@ -6,10 +7,11 @@ interface IRoadmanDefault {
     resolvers?: Function[];
     roadmen?: IRoadMan[];
     apps?: any[];
+    wastemen?: Promise<any>[];
 }
 
 export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
-    const {resolvers, roadmen, apps} = args;
+    const {resolvers, roadmen, apps, wastemen} = args;
 
     const roadman = new RoadmanBuilder();
 
@@ -33,6 +35,10 @@ export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
 
     await roadman.graphqlRoadman(); // to build the schemas
     await roadman.lastRoadman(); // to start the db and the server
+
+    if (!isEmpty(wastemen)) {
+        roadman.runWastemans(wastemen);
+    }
 
     return true;
 };
