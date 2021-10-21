@@ -22,7 +22,7 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
     const isRedisHost = !isEmpty(redisHost);
 
     let pubsub: any = null;
-    if (isRedisHost || isRedisUrl) {
+    if (isRedisHost) {
         const redisTls = !isEmpty(_get(process.env, 'REDIS_TLS', ''));
         const redisPort = _get(process.env, 'REDIS_PORT', 6379);
         const redisPass = _get(process.env, 'REDIS_PASS', undefined);
@@ -44,6 +44,7 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
                         }
                       : undefined,
                   password: redisPass,
+                  connectTimeout: 10000,
               };
         pubsub = new PubSub({
             publisher: new Redis(options as any),
