@@ -1,12 +1,13 @@
-import cookieParser from 'cookie-parser';
-import express from 'express';
-import cors from 'cors';
+import Redis, {RedisOptions} from 'ioredis';
+
 import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
-import {graphqlUploadExpress} from 'graphql-upload';
-import Redis from 'ioredis';
-import _get from 'lodash/get';
-import {isEmpty} from 'lodash';
 import {RoadmanBuild} from '../shared';
+import _get from 'lodash/get';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express from 'express';
+import {graphqlUploadExpress} from 'graphql-upload';
+import {isEmpty} from 'lodash';
 
 /**
  * First Builder Roadman, #1 my g
@@ -14,23 +15,39 @@ import {RoadmanBuild} from '../shared';
  * @returns BeforeRoadmanBuild
  */
 export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild> => {
-    const redisHost = _get(process.env, 'REDIS_HOST', 'localhost');
+    const redisUrl = _get(process.env, 'REDIS_URL', '');
+    const redisHost = _get(process.env, 'REDIS_HOST', '');
+
+    const isRedisUrl = !isEmpty(redisUrl);
+    const isRedisHost = !isEmpty(redisHost);
 
     let pubsub: any = null;
-    if (!isEmpty(redisHost)) {
+    if (isRedisHost || isRedisUrl) {
+        const redisTls = !isEmpty(_get(process.env, 'REDIS_TLS', ''));
+        const redisPort = _get(process.env, 'REDIS_PORT', 6379);
+        const redisPass = _get(process.env, 'REDIS_PASS', undefined);
+
         // Create ioredis
-        const options = {
-            host: redisHost,
-            port: 6379,
-            retryStrategy: (times: number) => {
-                // reconnect after
-                return Math.min(times * 50, 2000);
-            },
-            scope: 'auth-server',
-        };
+        const options: RedisOptions | string = isRedisUrl
+            ? redisUrl
+            : {
+                  host: redisHost,
+                  port: +redisPort,
+                  retryStrategy: (times: number) => {
+                      // reconnect after
+                      return Math.min(times * 50, 2000);
+                  },
+                  tls: redisTls
+                      ? {
+                            host: redisHost,
+                            port: +redisPort,
+                        }
+                      : undefined,
+                  password: redisPass,
+              };
         pubsub = new PubSub({
-            publisher: new Redis(options),
-            subscriber: new Redis(options),
+            publisher: new Redis(options as any),
+            subscriber: new Redis(options as any),
         });
     }
 
