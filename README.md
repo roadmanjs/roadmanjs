@@ -27,15 +27,10 @@ An efficient, and flexible NodeJS library for building backend services.
 
 | Feature            | Progress |
 | ----------------- | -------- |
-| ExpressJS (REST API)              | ✅        |
-| GraphQL API | ✅        |
-| Redis (queue, subscriptions)     | ✅        |
-| [Couchbase](https://github.com/roadmanjs/couchset)   | ✅        |
-<!-- | Twilio       | ❌        |
-| Stripe       | ❌        |
-| MongoDB       | ❌        |
-| Firebase auth (phone, email...)      | ❌        | -->
-
+| CORE: expressjs, rest/graphql api, redis, queue, subscriptions | ✅        |
+| [Couchbase](https://github.com/roadmanjs/couchset) - couchset orm   | ✅        |
+| [Auth & User](https://github.com/roadmanjs/auth) - phone login, create user resolvers   | ✅        |
+| [Firebase](https://github.com/roadmanjs/firebase-admin) - auth, storage, e.t.c   | ✅        |
 ## 1. Install
 ```bash
 npm i roadman --save
@@ -94,4 +89,25 @@ const {resolver} = PersonModel.automate({
 
 await roadman({resolvers: [resolver]});
 
+```
+
+
+## 3. With auth/user resolvers
+
+```ts
+import { couchsetRoadman } from '@roadmanjs/couchset';
+import { firebaseRoadman } from '@roadmanjs/firebase-admin';
+import { getAuthResolvers } from '@roadmanjs/auth';
+import { roadman } from "roadman";
+
+const resolvers = [...getAuthResolvers()];
+
+const run = async () => {
+  await roadman({
+    roadmen: [firebaseRoadman, couchsetRoadman],
+    resolvers,
+  })
+}
+
+run();
 ```
