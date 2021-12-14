@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {ApolloServer} from 'apollo-server-express';
-import {buildSchemaSync} from 'type-graphql';
-import http from 'http';
-import {graphqlPath} from '../config';
 import {RoadmanBuild} from '../shared';
+import {buildSchemaSync} from 'type-graphql';
+import {graphqlPath} from '../config';
+import http from 'http';
 
 /**
  * The last Builder Roadman
@@ -20,10 +20,12 @@ export const graphQLRoadman = async ({
               // @ts-ignore
               resolvers,
               pubSub: pubsub,
+              skipCheck: true,
           })
         : buildSchemaSync({
               // @ts-ignore
               resolvers,
+              skipCheck: true,
           });
 
     // build apollo server
