@@ -41,7 +41,8 @@
         "build": "rimraf dist && ./node_modules/.bin/tsc --skipLibCheck",
         "test": "mocha src/*test.ts --exit",
         "prepublishOnly": "npm run build",
-        "eslint": "eslint ./src --fix --ext=ts"
+        "eslint": "eslint ./src --fix --ext=ts",
+        "eg": "ts-node src/example"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -94,7 +95,7 @@
         "typescript": ">=2.0"
     },
     "dependencies": {
-        "apollo-server-express": "^2.14.2",
+        "apollo-server-express": "^3.6.2",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
         "debug": "^4.3.1",
@@ -108,6 +109,7 @@
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.20",
         "reflect-metadata": "^0.1.13",
+        "subscriptions-transport-ws": "^0.11.0",
         "type-graphql": "^1.1.1",
         "uuid": "^8.3.2"
     }
