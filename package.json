@@ -10,12 +10,31 @@
         "register/",
         "LICENSE"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/roadmanjs/roadmanjs.git"
+      },
+      "keywords": [
+        "roadman",
+        "roadmanjs",
+        "backend",
+        "couchbase",
+        "couchset",
+        "apollo-server-express",
+        "graphql",
+        "type-graphql",
+        "ioredis"
+      ],
     "author": {
         "name": "Ceddy Muhoza",
         "email": "ceddymuhoza@gmail.com",
         "url": "https://ceddy.org"
     },
     "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/roadmanjs/roadmanjs/issues"
+      },
+      "homepage": "https://github.com/roadmanjs/roadmanjs",
     "private": false,
     "scripts": {
         "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",

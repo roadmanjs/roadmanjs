@@ -12,7 +12,6 @@ firebase.config.js*
 config.gypi
 CVS
 npm-debug.log*
-docs
 
 /.editorconfig
 /.gitattributes
