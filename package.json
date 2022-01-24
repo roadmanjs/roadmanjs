@@ -1,6 +1,6 @@
 {
     "name": "roadman",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "description": "An efficient, and flexible NodeJS library for building backend services.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -13,8 +13,8 @@
     "repository": {
         "type": "git",
         "url": "git://github.com/roadmanjs/roadmanjs.git"
-      },
-      "keywords": [
+    },
+    "keywords": [
         "roadman",
         "roadmanjs",
         "backend",
@@ -24,7 +24,7 @@
         "graphql",
         "type-graphql",
         "ioredis"
-      ],
+    ],
     "author": {
         "name": "Ceddy Muhoza",
         "email": "ceddymuhoza@gmail.com",
@@ -33,8 +33,8 @@
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/roadmanjs/roadmanjs/issues"
-      },
-      "homepage": "https://github.com/roadmanjs/roadmanjs",
+    },
+    "homepage": "https://github.com/roadmanjs/roadmanjs",
     "private": false,
     "scripts": {
         "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
