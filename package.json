@@ -13,8 +13,8 @@
     "repository": {
         "type": "git",
         "url": "git://github.com/roadmanjs/roadmanjs.git"
-      },
-      "keywords": [
+    },
+    "keywords": [
         "roadman",
         "roadmanjs",
         "backend",
@@ -24,7 +24,7 @@
         "graphql",
         "type-graphql",
         "ioredis"
-      ],
+    ],
     "author": {
         "name": "Ceddy Muhoza",
         "email": "ceddymuhoza@gmail.com",
@@ -33,8 +33,8 @@
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/roadmanjs/roadmanjs/issues"
-      },
-      "homepage": "https://github.com/roadmanjs/roadmanjs",
+    },
+    "homepage": "https://github.com/roadmanjs/roadmanjs",
     "private": false,
     "scripts": {
         "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
@@ -72,7 +72,7 @@
         "@typescript-eslint/eslint-plugin": "^3.4.0",
         "@typescript-eslint/parser": "^3.4.0",
         "chai": "^4.2.0",
-        "eslint": "^6.8.0",
+        "eslint": "^8.7.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-import": "^2.20.2",
@@ -82,7 +82,7 @@
         "eslint-plugin-typescript": "^0.14.0",
         "husky": "^4.2.5",
         "lint-staged": "^10.1.7",
-        "mocha": "^8.2.1",
+        "mocha": "^9.2.0",
         "prettier": "^2.0.5",
         "rimraf": "^2.5.4",
         "ts-node": "^9.1.1",
