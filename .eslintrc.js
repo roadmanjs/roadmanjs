@@ -11,7 +11,7 @@ module.exports = {
     parserOptions: {
         project: './tsconfig.json',
     },
-    plugins: ['import', 'json', 'simple-import-sort'],
+    plugins: ['@typescript-eslint', 'import', 'json', 'simple-import-sort'],
     rules: {
         'prettier/prettier': 'error',
         '@typescript-eslint/array-type': 'off',
