@@ -1,11 +1,11 @@
 import Redis, {RedisOptions} from 'ioredis';
+import express, {json} from 'express';
 
 import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
 import {RoadmanBuild} from '../shared';
 import _get from 'lodash/get';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
 import {graphqlUploadExpress} from 'graphql-upload';
 import {isEmpty} from 'lodash';
 
@@ -52,6 +52,7 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
         });
     }
 
+    app.use(json({limit: '5mb'}));
     app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10}));
 
     app.use(
