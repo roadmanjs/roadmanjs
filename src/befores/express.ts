@@ -52,6 +52,7 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
         });
     }
 
+    // TODO add options to roadman constructor
     app.use(json({limit: '5mb'}));
     app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10}));
 
@@ -63,7 +64,6 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
     );
 
     app.use(cookieParser());
-    app.use(express.json());
     app.use(express.urlencoded({extended: true}));
 
     app.use((req: any, res: any, next: any) => {
