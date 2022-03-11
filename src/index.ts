@@ -1,7 +1,8 @@
 import 'reflect-metadata';
-import isEmpty from 'lodash/isEmpty';
-import {RoadmanBuilder} from './roadman.builder';
+
 import {IRoadMan} from './shared';
+import {RoadmanBuilder} from './roadman.builder';
+import isEmpty from 'lodash/isEmpty';
 
 interface IRoadmanDefault {
     resolvers?: Function[];
@@ -48,5 +49,4 @@ export * from './shared';
 export * from './config';
 export * from './befores';
 export * from './afters';
-export * from './pengs';
 export * from './wastemans';
