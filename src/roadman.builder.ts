@@ -1,13 +1,14 @@
-import {ApolloServer} from 'apollo-server-express';
-import {log} from 'console';
+import {ExpressRoadmanArgs, expressRoadman, graphQLRoadman} from './befores';
+import {IRoadMan, RoadmanBuild} from './shared';
 import express, {Application} from 'express';
+
+import {ApolloServer} from 'apollo-server-express';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
 import {Server} from 'http';
+import awaitTo from './utils/awaitTo';
 import {isEmpty} from 'lodash';
 import {listenRoadman} from './afters';
-import {expressRoadman, graphQLRoadman} from './befores';
-import {RoadmanBuild, IRoadMan} from './shared';
-import awaitTo from './utils/awaitTo';
+import {log} from 'console';
 
 /**
  * The Roadman Builder
@@ -35,10 +36,8 @@ export class RoadmanBuilder implements RoadmanBuild {
         }
     }
 
-    async firstRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
-        const mandem = roadman || expressRoadman;
-
-        const {app, pubsub} = await mandem(this);
+    async firstRoadman(expressArgs?: ExpressRoadmanArgs): Promise<RoadmanBuilder> {
+        const {app, pubsub} = await expressRoadman(this, expressArgs);
 
         this.app = app;
         this.pubsub = pubsub;

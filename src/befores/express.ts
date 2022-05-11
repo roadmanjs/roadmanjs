@@ -9,12 +9,23 @@ import cors from 'cors';
 import {graphqlUploadExpress} from 'graphql-upload';
 import {isEmpty} from 'lodash';
 
+export interface ExpressRoadmanArgs {
+    limit?: string; // 5mp
+    maxFileSize?: number; // 10000000,
+    maxFiles?: number; // 10
+    defaultIndex?: boolean;
+}
+
 /**
  * First Builder Roadman, #1 my g
  * @param  BeforeRoadmanBuild
  * @returns BeforeRoadmanBuild
  */
-export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild> => {
+export const expressRoadman = async (
+    {app}: RoadmanBuild,
+    args?: ExpressRoadmanArgs
+): Promise<RoadmanBuild> => {
+    const {limit = '5mb', maxFileSize = 10000000, maxFiles = 10, defaultIndex = true} = args;
     const redisUrl = _get(process.env, 'REDIS_URL', '');
     const redisHost = _get(process.env, 'REDIS_HOST', '');
 
@@ -52,9 +63,8 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
         });
     }
 
-    // TODO add options to roadman constructor
-    app.use(json({limit: '5mb'}));
-    app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10}));
+    app.use(json({limit}));
+    app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
 
     app.use(
         cors({
@@ -71,9 +81,11 @@ export const expressRoadman = async ({app}: RoadmanBuild): Promise<RoadmanBuild>
         next();
     });
 
-    app.get('/', (_, res) => {
-        res.send('hello');
-    });
+    if (defaultIndex) {
+        app.get('/', (_, res) => {
+            res.send('hello');
+        });
+    }
 
     return {app, pubsub};
 };

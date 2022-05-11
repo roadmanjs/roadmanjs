@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import {ExpressRoadmanArgs} from './befores';
 import {IRoadMan} from './shared';
 import {RoadmanBuilder} from './roadman.builder';
 import isEmpty from 'lodash/isEmpty';
@@ -11,12 +12,15 @@ interface IRoadmanDefault {
     wastemen?: Promise<any>[];
 }
 
-export const roadman = async (args?: IRoadmanDefault): Promise<boolean> => {
+export const roadman = async (
+    args?: IRoadmanDefault,
+    expressArgs?: Partial<ExpressRoadmanArgs>
+): Promise<boolean> => {
     const {resolvers, roadmen, apps, wastemen} = args;
 
     const roadman = new RoadmanBuilder();
 
-    await roadman.firstRoadman();
+    await roadman.firstRoadman(expressArgs);
 
     if (apps) {
         roadman.useApp(apps);
