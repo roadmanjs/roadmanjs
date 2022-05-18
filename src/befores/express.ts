@@ -1,9 +1,9 @@
+import {REDIS_HOST, REDIS_PASS, REDIS_PORT, REDIS_TLS, REDIS_URL} from '../config';
 import Redis, {RedisOptions} from 'ioredis';
 import express, {json} from 'express';
 
 import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
 import {RoadmanBuild} from '../shared';
-import _get from 'lodash/get';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import {graphqlUploadExpress} from 'graphql-upload';
@@ -26,37 +26,32 @@ export const expressRoadman = async (
     args?: ExpressRoadmanArgs
 ): Promise<RoadmanBuild> => {
     const {limit = '5mb', maxFileSize = 10000000, maxFiles = 10, defaultIndex = true} = args;
-    const redisUrl = _get(process.env, 'REDIS_URL', '');
-    const redisHost = _get(process.env, 'REDIS_HOST', '');
 
-    const isRedisUrl = !isEmpty(redisUrl);
-    const isRedisHost = !isEmpty(redisHost);
+    const isRedisUrl = !isEmpty(REDIS_URL);
+    const isRedisHost = !isEmpty(REDIS_HOST);
 
     let pubsub: any = null;
-    if (isRedisHost) {
-        const redisTls = !isEmpty(_get(process.env, 'REDIS_TLS', ''));
-        const redisPort = _get(process.env, 'REDIS_PORT', 6379);
-        const redisPass = _get(process.env, 'REDIS_PASS', undefined);
-
+    if (isRedisHost || isRedisUrl) {
         // Create ioredis
         const options: RedisOptions | string = isRedisUrl
-            ? redisUrl
+            ? REDIS_URL
             : {
-                  host: redisHost,
-                  port: +redisPort,
+                  host: REDIS_HOST,
+                  port: +REDIS_PORT,
                   retryStrategy: (times: number) => {
                       // reconnect after
                       return Math.min(times * 50, 2000);
                   },
-                  tls: redisTls
+                  tls: REDIS_TLS
                       ? {
-                            host: redisHost,
-                            port: +redisPort,
+                            host: REDIS_HOST,
+                            port: +REDIS_PORT,
                         }
                       : undefined,
-                  password: redisPass,
+                  password: REDIS_PASS,
                   connectTimeout: 10000,
               };
+
         pubsub = new PubSub({
             publisher: new Redis(options as any),
             subscriber: new Redis(options as any),
