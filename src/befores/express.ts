@@ -30,7 +30,7 @@ export const expressRoadman = async (
     const isRedisUrl = !isEmpty(REDIS_URL);
     const isRedisHost = !isEmpty(REDIS_HOST);
 
-    let pubsub: any = null;
+    let pubsub: PubSub = null;
     if (isRedisHost || isRedisUrl) {
         // Create ioredis
         const options: RedisOptions | string = isRedisUrl
