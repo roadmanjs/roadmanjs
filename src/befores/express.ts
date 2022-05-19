@@ -25,7 +25,7 @@ export const expressRoadman = async (
     {app}: RoadmanBuild,
     args?: ExpressRoadmanArgs
 ): Promise<RoadmanBuild> => {
-    const {limit = '5mb', maxFileSize = 10000000, maxFiles = 10, defaultIndex = true} = args;
+    const {limit = '5mb', maxFileSize = 10000000, maxFiles = 10, defaultIndex = true} = args || {};
 
     const isRedisUrl = !isEmpty(REDIS_URL);
     const isRedisHost = !isEmpty(REDIS_HOST);
