@@ -7,6 +7,7 @@ import {RoadmanBuild} from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import {graphqlUploadExpress} from 'graphql-upload';
+import http from 'http';
 import {isEmpty} from 'lodash';
 
 export interface ExpressRoadmanArgs {
@@ -82,7 +83,10 @@ export const expressRoadman = async (
         });
     }
 
-    return {app, pubsub};
+    // Create  HTTP server
+    const httpServer = http.createServer(app);
+
+    return {app, pubsub, httpServer};
 };
 
 export default expressRoadman;
