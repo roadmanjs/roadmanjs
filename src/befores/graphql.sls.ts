@@ -2,12 +2,12 @@ import {
     ApolloServerPluginLandingPageDisabled,
     ApolloServerPluginLandingPageGraphQLPlayground,
 } from 'apollo-server-core';
-import {graphqlPath, isDev} from '../config';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {ApolloServer} from 'apollo-server-lambda';
 import {RoadmanBuilderSls} from '../shared';
 import {buildSchemaSync} from 'type-graphql';
+import {isDev} from '../config';
 
 /**
  * The last Builder Roadman
@@ -30,17 +30,11 @@ export const graphQLRoadman = ({app, resolvers}: RoadmanBuilderSls): RoadmanBuil
                 ? ApolloServerPluginLandingPageDisabled()
                 : ApolloServerPluginLandingPageGraphQLPlayground(),
         ],
-        introspection: true, // enables introspection of the schema
+        introspection: isDev, // enables introspection of the schema
         csrfPrevention: true,
         cache: 'bounded',
         // playground: true, // enables the actual playground
         // uploads: false,
-    });
-
-    apolloServer.applyMiddleware({
-        app,
-        path: graphqlPath,
-        cors: {origin: '*'},
     });
 
     return {
