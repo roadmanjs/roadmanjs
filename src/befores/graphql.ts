@@ -10,7 +10,6 @@ import {ApolloServer} from 'apollo-server-express';
 import {RoadmanBuild} from '../shared';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
-import http from 'http';
 
 /**
  * The last Builder Roadman
@@ -21,6 +20,7 @@ export const graphQLRoadman = async ({
     app,
     pubsub,
     resolvers,
+    httpServer,
 }: RoadmanBuild): Promise<RoadmanBuild> => {
     // Schema
     const schema = pubsub
@@ -35,9 +35,6 @@ export const graphQLRoadman = async ({
               resolvers,
               skipCheck: true,
           });
-
-    // Create  HTTP server and run
-    const httpServer = http.createServer(app);
 
     const subscriptionServer = SubscriptionServer.create(
         {schema, execute, subscribe},

@@ -1,5 +1,6 @@
+import {Query, Resolver} from 'type-graphql';
+
 import {roadman} from '.';
-import {Resolver, Query} from 'type-graphql';
 
 @Resolver()
 class ExampleResolver {

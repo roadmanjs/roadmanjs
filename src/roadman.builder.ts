@@ -37,10 +37,11 @@ export class RoadmanBuilder implements RoadmanBuild {
     }
 
     async firstRoadman(expressArgs?: ExpressRoadmanArgs): Promise<RoadmanBuilder> {
-        const {app, pubsub} = await expressRoadman(this, expressArgs);
+        const {app, pubsub, httpServer} = await expressRoadman(this, expressArgs);
 
         this.app = app;
         this.pubsub = pubsub;
+        this.httpServer = httpServer;
 
         return this;
     }
@@ -76,9 +77,8 @@ export class RoadmanBuilder implements RoadmanBuild {
     async graphqlRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
         const mandem = roadman || graphQLRoadman;
 
-        const {apolloServer, httpServer} = await mandem(this);
+        const {apolloServer} = await mandem(this);
         this.apolloServer = apolloServer;
-        this.httpServer = httpServer;
 
         return this;
     }
