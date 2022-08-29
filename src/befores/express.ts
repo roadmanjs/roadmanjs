@@ -53,8 +53,8 @@ export const expressRoadman = async (
                   connectTimeout: 10000,
               };
 
-        pubsub = new PubSub({
-            publisher: new Redis(options as any),
+        pubsub = new PubSub({ //@ts-ignore
+            publisher: new Redis(options as any), //@ts-ignore
             subscriber: new Redis(options as any),
         });
     }
