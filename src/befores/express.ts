@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import {graphqlUploadExpress} from 'graphql-upload';
 import http from 'http';
+import includes from 'lodash/includes';
 import {isEmpty} from 'lodash';
 
 export interface ExpressRoadmanArgs {
@@ -53,13 +54,24 @@ export const expressRoadman = async (
                   connectTimeout: 10000,
               };
 
-        pubsub = new PubSub({ //@ts-ignore
-            publisher: new Redis(options as any), //@ts-ignore
+        pubsub = new PubSub({
+            publisher: new Redis(options as any),
             subscriber: new Redis(options as any),
         });
     }
 
-    app.use(json({limit}));
+    // Use JSON parser for all non-webhook routes
+    app.use((req, res, next) => {
+        const isWebHook = includes(req.originalUrl, 'webhook');
+        if (isWebHook) {
+            next();
+        } else {
+            json({limit})(req, res, next);
+        }
+    });
+
+    // app.use(json({limit}));
+
     app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
 
     app.use(
