@@ -72,8 +72,6 @@ export const expressRoadman = async (
 
     // app.use(json({limit}));
 
-    app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
-
     app.use(
         cors({
             origin: '*',
@@ -94,6 +92,8 @@ export const expressRoadman = async (
             res.send('hello');
         });
     }
+
+    app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
 
     // Create  HTTP server
     const httpServer = http.createServer(app);

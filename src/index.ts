@@ -38,7 +38,7 @@ export const roadman = async (
         });
     }
 
-    await roadman.graphqlRoadman(); // to build the schemas
+    await roadman.graphqlRoadman(expressArgs); // to build the schemas
     await roadman.lastRoadman(); // to start the db and the server
 
     if (!isEmpty(wastemen)) {

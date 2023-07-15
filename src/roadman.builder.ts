@@ -74,12 +74,9 @@ export class RoadmanBuilder implements RoadmanBuild {
         return this;
     }
 
-    async graphqlRoadman(roadman?: IRoadMan): Promise<RoadmanBuilder> {
-        const mandem = roadman || graphQLRoadman;
-
-        const {apolloServer} = await mandem(this);
+    async graphqlRoadman(expressArgs?: ExpressRoadmanArgs): Promise<RoadmanBuilder> {
+        const {apolloServer} = await graphQLRoadman(this, expressArgs);
         this.apolloServer = apolloServer;
-
         return this;
     }
 
