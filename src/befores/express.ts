@@ -6,7 +6,7 @@ import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
 import {RoadmanBuild} from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import {graphqlUploadExpress} from 'graphql-upload';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import http from 'http';
 import includes from 'lodash/includes';
 import {isEmpty} from 'lodash';
