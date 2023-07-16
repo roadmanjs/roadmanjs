@@ -32,7 +32,7 @@ jobs:
 
       # Install packages with yarn
       - name: "Install"
-        run: npm install
+        run: yarn
 
       # Publish the package
       - name: npm publish

@@ -11,7 +11,7 @@ import {ExpressRoadmanArgs} from './express';
 import {RoadmanBuild} from '../shared';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
-import {graphqlUploadExpress} from 'graphql-upload';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 
 /**
  * The last Builder Roadman
