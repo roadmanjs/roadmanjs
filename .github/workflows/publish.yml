@@ -20,7 +20,11 @@ jobs:
       - name: "Setup Node.js"
         uses: "actions/setup-node@v1"
         with:
-          node-version: 12
+          node-version: 16
+
+      # Install packages with yarn
+      - name: "Install"
+        run: yarn
 
       # Automated Version Bump
       - name: "Automated Version Bump"
@@ -28,11 +32,7 @@ jobs:
         with:
           tag-prefix: ""
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Install packages with yarn
-      - name: "Install"
-        run: yarn
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
 
       # Publish the package
       - name: npm publish
