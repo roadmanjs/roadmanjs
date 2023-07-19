@@ -6,11 +6,9 @@ import { RedisPubSub as PubSub } from 'graphql-redis-subscriptions';
 import { RoadmanBuild } from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import http from 'http';
 import includes from 'lodash/includes';
 import { isEmpty } from 'lodash';
-import processRequest from 'graphql-upload/processRequest.js';
 
 export interface ExpressRoadmanArgs {
     limit?: string; // 5mp
@@ -28,7 +26,7 @@ export const expressRoadman = async (
     { app }: RoadmanBuild,
     args?: ExpressRoadmanArgs
 ): Promise<RoadmanBuild> => {
-    const { limit = '5mb', maxFileSize = 10000000, maxFiles = 10, defaultIndex = true } = args || {};
+    const { limit = '5mb', defaultIndex = true } = args || {};
 
     const isRedisUrl = !isEmpty(REDIS_URL);
     const isRedisHost = !isEmpty(REDIS_HOST);
@@ -88,21 +86,11 @@ export const expressRoadman = async (
         next();
     });
 
-    app.use(async (req: any, res: any, next: any) => {
-        const contentType = req.headers['content-type'];
-        if (contentType && contentType.startsWith('multipart/form-data')) {
-            req.filePayload = await processRequest(req, res);
-        }
-        next();
-    });
-
     if (defaultIndex) {
         app.get('/', (_, res) => {
             res.send('hello');
         });
     }
-
-    app.use(graphqlUploadExpress({ maxFileSize, maxFiles }));
 
     // Create  HTTP server
     const httpServer = http.createServer(app);

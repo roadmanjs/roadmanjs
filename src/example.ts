@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {Query, Resolver} from 'type-graphql';
 
 import {roadman} from '.';

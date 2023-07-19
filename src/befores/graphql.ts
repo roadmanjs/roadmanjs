@@ -63,7 +63,7 @@ export const graphQLRoadman = async (
         introspection: true, // enables introspection of the schema
         // playground: true, // enables the actual playground
         context: ({req, res}) => ({req, res, pubsub}),
-        csrfPrevention: true,
+        csrfPrevention: false,
         allowBatchedHttpRequests: true, // enables
     });
 
