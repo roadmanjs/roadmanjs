@@ -3,6 +3,7 @@ import {
     ApolloServerPluginLandingPageGraphQLPlayground,
 } from 'apollo-server-core';
 import {execute, subscribe} from 'graphql';
+import express, {json} from 'express';
 import {graphqlPath, isDev} from '../config';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -13,7 +14,6 @@ import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import includes from 'lodash/includes';
-import {json} from 'express';
 
 /**
  * The last Builder Roadman
@@ -76,13 +76,13 @@ export const graphQLRoadman = async (
     // Use JSON parser for all non-webhook routes
     app.use((req, res, next) => {
         const isWebHook = includes(req.originalUrl, 'webhook');
-        const isFileUpload = req.is('multipart/form-data');
-        if (isWebHook || isFileUpload) {
+        if (isWebHook) {
             next();
         } else {
             json({limit})(req, res, next);
         }
     });
+    app.use(express.urlencoded({extended: true}));
 
     apolloServer.applyMiddleware({
         app,

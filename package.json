@@ -97,7 +97,7 @@
     "dependencies": {
         "apollo-server-express": "^3.6.2",
         "apollo-server-lambda": "^3.10.2",
-        "class-validator": "0.13.2",
+        "class-validator": "^0.14.0",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
         "debug": "^4.3.1",
