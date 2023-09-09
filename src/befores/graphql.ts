@@ -87,7 +87,7 @@ export const graphQLRoadman = async (
     // Use JSON parser for all non-webhook routes
     app.use((req, res, next) => {
         const isWebHook = includes(req.originalUrl, 'webhook');
-        if (isWebHook) {
+        if (isWebHook || req.is('multipart/form-data')) {
             next();
         } else {
             json({limit})(req, res, next);
