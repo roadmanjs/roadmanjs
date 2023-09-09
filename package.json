@@ -92,8 +92,8 @@
         "typescript": "^5.1.6"
     },
     "peerDependencies": {
-        "typescript": ">=2.0",
-        "class-validator": ">=0.14.0"
+        "class-validator": ">=0.14.0",
+        "typescript": ">=2.0"
     },
     "dependencies": {
         "apollo-server-express": "^3.6.2",
@@ -107,7 +107,7 @@
         "graphql": "^15.0.0",
         "graphql-redis-subscriptions": "^2.3.1",
         "graphql-type-json": "^0.3.2",
-        "graphql-upload": "15.0.2",
+        "graphql-upload": "13",
         "ioredis": "^4.19.4",
         "jsonwebtoken": "^9.0.1",
         "lodash": "^4.17.20",
