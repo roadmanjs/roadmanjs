@@ -92,7 +92,8 @@
         "typescript": "^5.1.6"
     },
     "peerDependencies": {
-        "typescript": ">=2.0"
+        "typescript": ">=2.0",
+        "class-validator": ">=0.14.0"
     },
     "dependencies": {
         "apollo-server-express": "^3.6.2",
