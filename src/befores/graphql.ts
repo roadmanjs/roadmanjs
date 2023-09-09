@@ -14,7 +14,7 @@ import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
+import {graphqlUploadExpress} from 'graphql-upload';
 import includes from 'lodash/includes';
 
 /**

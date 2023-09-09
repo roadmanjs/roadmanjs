@@ -4,7 +4,7 @@ import {ExpressRoadmanArgs} from './express';
 import {RoadmanBuilderSls} from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
+import {graphqlUploadExpress} from 'graphql-upload';
 
 /**
  * First Builder Roadman, #1 my g
