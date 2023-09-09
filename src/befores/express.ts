@@ -5,7 +5,6 @@ import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
 import {RoadmanBuild} from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
 import http from 'http';
 import {isEmpty} from 'lodash';
 
@@ -66,7 +65,6 @@ export const expressRoadman = async (
     );
 
     app.use(cookieParser());
-    app.use(express.urlencoded({extended: true}));
 
     app.use((req: any, res: any, next: any) => {
         req.pubsub = pubsub;
