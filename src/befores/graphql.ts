@@ -12,6 +12,8 @@ import {ExpressRoadmanArgs} from './express';
 import {RoadmanBuild} from '../shared';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import includes from 'lodash/includes';
 
@@ -72,6 +74,15 @@ export const graphQLRoadman = async (
     await apolloServer.start();
 
     app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
+
+    app.use(
+        cors({
+            origin: '*',
+            credentials: true,
+        })
+    );
+
+    app.use(cookieParser());
 
     // Use JSON parser for all non-webhook routes
     app.use((req, res, next) => {

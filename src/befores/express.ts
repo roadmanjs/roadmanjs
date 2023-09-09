@@ -3,8 +3,6 @@ import Redis, {RedisOptions} from 'ioredis';
 
 import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
 import {RoadmanBuild} from '../shared';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import http from 'http';
 import {isEmpty} from 'lodash';
 
@@ -56,15 +54,6 @@ export const expressRoadman = async (
             subscriber: new Redis(options as any),
         });
     }
-
-    app.use(
-        cors({
-            origin: '*',
-            credentials: true,
-        })
-    );
-
-    app.use(cookieParser());
 
     app.use((req: any, res: any, next: any) => {
         req.pubsub = pubsub;
