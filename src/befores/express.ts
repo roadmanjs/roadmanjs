@@ -1,14 +1,13 @@
-import { REDIS_HOST, REDIS_PASS, REDIS_PORT, REDIS_TLS, REDIS_URL } from '../config';
-import Redis, { RedisOptions } from 'ioredis';
-import express, { json } from 'express';
+import {REDIS_HOST, REDIS_PASS, REDIS_PORT, REDIS_TLS, REDIS_URL} from '../config';
+import Redis, {RedisOptions} from 'ioredis';
 
-import { RedisPubSub as PubSub } from 'graphql-redis-subscriptions';
-import { RoadmanBuild } from '../shared';
+import {RedisPubSub as PubSub} from 'graphql-redis-subscriptions';
+import {RoadmanBuild} from '../shared';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import express from 'express';
 import http from 'http';
-import includes from 'lodash/includes';
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 
 export interface ExpressRoadmanArgs {
     limit?: string; // 5mp
@@ -23,10 +22,10 @@ export interface ExpressRoadmanArgs {
  * @returns BeforeRoadmanBuild
  */
 export const expressRoadman = async (
-    { app }: RoadmanBuild,
+    {app}: RoadmanBuild,
     args?: ExpressRoadmanArgs
 ): Promise<RoadmanBuild> => {
-    const { limit = '5mb', defaultIndex = true } = args || {};
+    const {defaultIndex = true} = args || {};
 
     const isRedisUrl = !isEmpty(REDIS_URL);
     const isRedisHost = !isEmpty(REDIS_HOST);
@@ -37,39 +36,27 @@ export const expressRoadman = async (
         const options: RedisOptions | string = isRedisUrl
             ? REDIS_URL
             : {
-                host: REDIS_HOST,
-                port: +REDIS_PORT,
-                retryStrategy: (times: number) => {
-                    // reconnect after
-                    return Math.min(times * 50, 2000);
-                },
-                tls: REDIS_TLS
-                    ? {
-                        host: REDIS_HOST,
-                        port: +REDIS_PORT,
-                    }
-                    : undefined,
-                password: REDIS_PASS,
-                connectTimeout: 10000,
-            };
+                  host: REDIS_HOST,
+                  port: +REDIS_PORT,
+                  retryStrategy: (times: number) => {
+                      // reconnect after
+                      return Math.min(times * 50, 2000);
+                  },
+                  tls: REDIS_TLS
+                      ? {
+                            host: REDIS_HOST,
+                            port: +REDIS_PORT,
+                        }
+                      : undefined,
+                  password: REDIS_PASS,
+                  connectTimeout: 10000,
+              };
 
         pubsub = new PubSub({
             publisher: new Redis(options as any),
             subscriber: new Redis(options as any),
         });
     }
-
-    // Use JSON parser for all non-webhook routes
-    app.use((req, res, next) => {
-        const isWebHook = includes(req.originalUrl, 'webhook');
-        if (isWebHook) {
-            next();
-        } else {
-            json({ limit })(req, res, next);
-        }
-    });
-
-    // app.use(json({limit}));
 
     app.use(
         cors({
@@ -79,7 +66,7 @@ export const expressRoadman = async (
     );
 
     app.use(cookieParser());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({extended: true}));
 
     app.use((req: any, res: any, next: any) => {
         req.pubsub = pubsub;
@@ -95,7 +82,7 @@ export const expressRoadman = async (
     // Create  HTTP server
     const httpServer = http.createServer(app);
 
-    return { app, pubsub, httpServer };
+    return {app, pubsub, httpServer};
 };
 
 export default expressRoadman;

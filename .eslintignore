@@ -1,2 +1,4 @@
 *.test.ts
 node_modules
+exampleupload.ts
+example.ts

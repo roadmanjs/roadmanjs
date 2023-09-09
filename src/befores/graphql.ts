@@ -12,6 +12,8 @@ import {RoadmanBuild} from '../shared';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {buildSchemaSync} from 'type-graphql';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
+import includes from 'lodash/includes';
+import {json} from 'express';
 
 /**
  * The last Builder Roadman
@@ -22,7 +24,7 @@ export const graphQLRoadman = async (
     {app, pubsub, resolvers, httpServer}: RoadmanBuild,
     args?: ExpressRoadmanArgs
 ): Promise<RoadmanBuild> => {
-    const {maxFileSize = 10000000, maxFiles = 10} = args || {};
+    const {maxFileSize = 10000000, maxFiles = 10, limit = '5mb'} = args || {};
 
     // Schema
     const schema = pubsub
@@ -70,6 +72,17 @@ export const graphQLRoadman = async (
     await apolloServer.start();
 
     app.use(graphqlUploadExpress({maxFileSize, maxFiles}));
+
+    // Use JSON parser for all non-webhook routes
+    app.use((req, res, next) => {
+        const isWebHook = includes(req.originalUrl, 'webhook');
+        const isFileUpload = req.is('multipart/form-data');
+        if (isWebHook || isFileUpload) {
+            next();
+        } else {
+            json({limit})(req, res, next);
+        }
+    });
 
     apolloServer.applyMiddleware({
         app,
